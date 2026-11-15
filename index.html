@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Short Link Generator (vercel.json)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+    body { background: #0f172a; color: #f8fafc; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+    .card { background: #1e293b; max-width: 650px; width: 100%; padding: 28px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid #334155; }
+    h1 { font-size: 1.5rem; margin-bottom: 8px; color: #38bdf8; }
+    p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px; }
+    .row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    input { flex: 1; min-width: 180px; padding: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.95rem; }
+    button { padding: 12px 18px; border: none; border-radius: 8px; background: #38bdf8; color: #0f172a; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    button:hover { background: #0284c7; color: #fff; }
+    pre { background: #0f172a; padding: 16px; border-radius: 10px; border: 1px solid #334155; overflow-x: auto; font-size: 0.88rem; color: #a7f3d0; margin-top: 16px; }
+    .copy-btn { margin-top: 12px; width: 100%; background: #10b981; color: #fff; }
+    .copy-btn:hover { background: #059669; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔗 শর্ট লিংক জেনারেটর (vercel.json)</h1>
+    <p>আপনার শর্ট নাম এবং মূল লিংক নিচে যোগ করুন। এটি অটোমেটিক আপনার GitHub-এর <code>vercel.json</code> ফাইলের কোড তৈরি করে দেবে।</p>
+
+    <div class="row">
+      <input type="text" id="slug" placeholder="শর্ট নাম (যেমন: fb বা video1)" />
+      <input type="url" id="url" placeholder="মূল বড় লিংক (https://...)" />
+      <button onclick="addLink()">+ যোগ করুন</button>
+    </div>
+
+    <pre id="output"></pre>
+    <button class="copy-btn" onclick="copyCode()">📋 vercel.json কোড কপি করুন</button>
+  </div>
+
+  <script>
+    const redirects = [
+      { source: "/yt", destination: "https://www.youtube.com/", permanent: false },
+      { source: "/fb", destination: "https://www.facebook.com/", permanent: false }
+    ];
+
+    function render() {
+      document.getElementById('output').textContent = JSON.stringify({ redirects }, null, 2);
+    }
+
+    function addLink() {
+      let slug = document.getElementById('slug').value.trim();
+      let url = document.getElementById('url').value.trim();
+      if (!slug || !url) return alert('শর্ট নাম এবং মূল লিংক দুটিই দিন!');
+      if (!slug.startsWith('/')) slug = '/' + slug;
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+      redirects.push({ source: slug, destination: url, permanent: false });
+      document.getElementById('slug').value = '';
+      document.getElementById('url').value = '';
+      render();
+    }
+
+    function copyCode() {
+      navigator.clipboard.writeText(document.getElementById('output').textContent);
+      alert('কোড কপি হয়েছে! এবার GitHub-এর vercel.json ফাইলে পেস্ট করুন।');
+    }
+
+    render();
+  </script>
+</body>
+</html>

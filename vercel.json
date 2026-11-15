@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/yt",
+      "destination": "https://www.youtube.com/",
+      "permanent": false
+    },
+    {
+      "source": "/fb",
+      "destination": "https://www.facebook.com/",
+      "permanent": false
+    },
+    {
+      "source": "/gh",
+      "destination": "https://github.com/",
+      "permanent": false
+    }
+  ]
+}

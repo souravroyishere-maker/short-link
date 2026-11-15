@@ -14,6 +14,11 @@
       "source": "/sajib",
       "destination": "https://bowlsharp.com/hqp9qd2n?key=98de27fea6268ad3284bc0c4b817561c",
       "permanent": false
+    },
+    {
+      "source": "/facebook",
+      "destination": "https://bowlsharp.com/hqp9qd2n?key=98de27fea6268ad3284bc0c4b817561c",
+      "permanent": false
     }
   ]
 }
